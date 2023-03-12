@@ -1,8 +1,7 @@
 package org.sercsalor;
 
-import java.io.*;
-import java.util.Arrays;
-import java.util.Collections;
+import org.sercsalor.service.JsonConverter;
+import org.sercsalor.service.StringTokenizer;
 
 public class Main {
 
@@ -12,24 +11,13 @@ public class Main {
             System.out.println("Invalid argument");
         }
 
-        // read file
-        File file = new File(args[0]);
+        String filePath = args[0];
+        String delimiter = args[1];
 
-        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(file)))) {
-            String line = bufferedReader.readLine();
-
-            while (line != null) {
-                System.out.println(line);
-                line = bufferedReader.readLine();
-            }
-
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        System.out.println("Hello world!");
+        JsonConverter jsonConverter = new JsonConverter(new StringTokenizer(), filePath, delimiter);
+        jsonConverter.convert();
     }
+
+
 
 }
